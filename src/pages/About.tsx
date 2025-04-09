@@ -34,14 +34,31 @@ function About() {
   });
   const [showForm, setShowForm] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSession = async () => {
       const { data: { session }, error } = await supabase.auth.getSession();
       if (error) {
         console.error('Error fetching session:', error);
+        setLoading(false);
       } else {
         setUser(session?.user || null);
+        if (session?.user) {
+          const { data: userData, error: roleError } = await supabase
+            .from('members')
+            .select('role')
+            .eq('email', session.user.email)
+            .single();
+
+          if (roleError) {
+            console.error('Error fetching user role:', roleError);
+          } else {
+            setUserRole(userData?.role || null);
+          }
+        }
+        setLoading(false);
       }
     };
 
@@ -49,10 +66,10 @@ function About() {
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user || null);
+      setLoading(false);
     });
 
     return () => {
-      // Unsubscribe using the subscription property
       authListener.subscription.unsubscribe();
     };
   }, []);
@@ -128,13 +145,11 @@ function About() {
     
     const { full_name, email, phone, block_number, is_executive } = newMember;
 
-    // Ensure all required fields are filled
     if (!full_name || !email || !phone || !block_number) {
       console.error('All fields are required');
       return;
     }
 
-    // Check if the user is authenticated
     if (!user) {
       console.error('User not authenticated');
       return;
@@ -147,7 +162,7 @@ function About() {
         phone,
         block_number,
         is_executive,
-        member_id: user.id, // Assuming you want to associate the member with the logged-in user
+        member_id: user.id,
       },
     ]);
 
@@ -164,9 +179,31 @@ function About() {
         block_number: '',
         is_executive: false,
       });
-      fetchMembers(); // Refresh the member list
+      fetchMembers();
     }
   };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const { data, error } = await supabase.storage
+        .from('member-photos')
+        .upload(`public/${file.name}`, file);
+
+      if (error) {
+        console.error('Error uploading photo:', error);
+      } else {
+        console.log('Photo uploaded successfully:', data);
+        // You can now save the photo URL to the member's record
+        const photoUrl = `https://your-supabase-url.supabase.co/storage/v1/object/public/member-photos/${file.name}`;
+        // Save this URL to the member's record if needed
+      }
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -332,6 +369,14 @@ function About() {
                 onChange={handleInputChange}
                 required
               />
+              {userRole === 'admin' && (
+                <input
+                  type="file"
+                  name="photo"
+                  onChange={handlePhotoUpload}
+                  required
+                />
+              )}
               <button type="submit">Submit</button>
             </form>
           )}

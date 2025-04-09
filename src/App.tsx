@@ -50,8 +50,8 @@ function App() {
           <main className="flex-grow">
             {user ? (
               <div>
-                <nav>
-                  <span>Welcome, {user.email}</span>
+                <nav className="login-info">
+                  <span>Hi, {user.email} </span>
                   <Link to="/" onClick={handleLogout}>Logout</Link>
                 </nav>
                 <Routes>

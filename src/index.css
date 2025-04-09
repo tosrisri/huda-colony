@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a, button { outline: none;}
+
+.login-info {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 12px;
+}
+.login-info a {
+  margin-right: 1rem;
+  margin-left: 1em;
+  color: #4f46e5;
+  text-decoration: none;
+}
+.login-info a:hover {
+  text-decoration: underline;
+}
