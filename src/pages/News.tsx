@@ -53,7 +53,7 @@ function News() {
 
         <div className="space-y-8">
           {news.map((item) => (
-            <article key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <article key={item.id} className="overflow-hidden border-b">
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">{item.title}</h2>
                 <div className="flex items-center text-sm text-gray-500 mb-4">

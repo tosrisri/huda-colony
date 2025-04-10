@@ -55,3 +55,8 @@ a, button { outline: none;}
 .login-container {
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
+
+.cards-bg {
+  background: rgb(252,252,252);
+background: linear-gradient(145deg, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 60%, rgba(226,226,226,1) 100%);
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Calendar, Users, MessageSquare, Bell, Phone } from 'lucide-react';
-import parkImage from '../assets/images/park.png';
+import parkImage from '../assets/images/park.jpg';
 import './Home.css'; // Import your CSS file for flip card styles
 
 interface NewsItem {
@@ -95,7 +95,7 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.length > 0 ? (
               news.map((item) => (
-                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div key={item.id} className="cards-bg rounded-lg shadow-md overflow-hidden">
                   <div className="p-6">
                     <div className="flex items-center mb-4">
                       <Calendar className="h-5 w-5 text-indigo-600 mr-2" />
@@ -165,7 +165,7 @@ function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-white rounded-lg shadow-md p-6">
+              <div key={item} className="cards-bg rounded-lg shadow-md p-6">
                 <div className="flex items-center mb-4">
                   <img
                     src={`https://i.pravatar.cc/150?img=${item + 4}`}
@@ -199,7 +199,7 @@ function Home() {
               { title: 'Maintenance', number: '+91 98765-43211' },
               { title: 'Medical Emergency', number: '+91 98765-43212' },
             ].map((contact, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6">
+              <div key={index} className="cards-bg rounded-lg shadow-md p-6">
                 <h3 className="text-xl font-semibold mb-2">{contact.title}</h3>
                 <p className="text-indigo-600 text-lg font-medium">{contact.number}</p>
               </div>
