@@ -84,7 +84,7 @@ function Contact() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-[#f9ebff] rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">Submit an Issue or Concern</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>

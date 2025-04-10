@@ -95,83 +95,87 @@ function Services() {
           <h1 className="text-3xl font-bold text-gray-900">Services</h1>
         </div>
 
-        {/* Services List */}
-        <div className="space-y-4">
-          {services.map((service) => (
-            <div key={service.id} className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold">{service.name}</h3>
-              <p className="text-gray-600">{service.description}</p>
-              <p className="text-gray-500">Contact: {service.contact_info}</p>
-            </div>
-          ))}
-          {services.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">No services available at the moment.</p>
-            </div>
-          )}
-        </div>
-
-        {/* Service Request Form */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Request a Service</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                Select Service
-              </label>
-              <select
-                id="service"
-                value={selectedService}
-                onChange={(e) => setSelectedService(e.target.value)}
-                className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                required
-              >
-                <option value="">Select a service...</option>
-                {services.map((service) => (
-                  <option key={service.id} value={service.id}>
-                    {service.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-                Description
-              </label>
-              <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={4}
-                className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Please describe your service request..."
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={submitStatus === 'loading'}
-              className="flex items-center justify-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {submitStatus === 'loading' ? (
-                'Submitting...'
-              ) : (
-                <>
-                  <Send className="h-5 w-5 mr-2" />
-                  Submit Request
-                </>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Services List */}
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {services.map((service) => (
+                <div key={service.id} className="cards-bg rounded-lg shadow-md p-6">
+                  <h3 className="text-xl font-semibold">{service.name}</h3>
+                  <p className="text-gray-600">{service.description}</p>
+                  <p className="text-gray-500">Contact: {service.contact_info}</p>
+                </div>
+              ))}
+              {services.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-gray-500">No services available at the moment.</p>
+                </div>
               )}
-            </button>
+            </div>
+          </div>
 
-            {submitStatus === 'success' && (
-              <p className="text-green-600 text-center">Service request submitted successfully!</p>
-            )}
-            {submitStatus === 'error' && (
-              <p className="text-red-600 text-center">Error submitting service request. Please try again.</p>
-            )}
-          </form>
+          {/* Service Request Form */}
+          <div className="rounded-lg shadow-md p-6 bg-[#f9ebff]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Request a Service</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Service
+                </label>
+                <select
+                  id="service"
+                  value={selectedService}
+                  onChange={(e) => setSelectedService(e.target.value)}
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  required
+                >
+                  <option value="">Select a service...</option>
+                  {services.map((service) => (
+                    <option key={service.id} value={service.id}>
+                      {service.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={4}
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="Please describe your service request..."
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitStatus === 'loading'}
+                className="flex items-center justify-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              >
+                {submitStatus === 'loading' ? (
+                  'Submitting...'
+                ) : (
+                  <>
+                    <Send className="h-5 w-5 mr-2" />
+                    Submit Request
+                  </>
+                )}
+              </button>
+
+              {submitStatus === 'success' && (
+                <p className="text-green-600 text-center">Service request submitted successfully!</p>
+              )}
+              {submitStatus === 'error' && (
+                <p className="text-red-600 text-center">Error submitting service request. Please try again.</p>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </div>
