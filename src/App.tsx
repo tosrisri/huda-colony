@@ -14,64 +14,71 @@ import { AuthProvider } from './contexts/AuthContext';
 import { supabase } from './lib/supabase';
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<any>(null); // Define user state
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Error fetching session:', error);
-      } else {
-        setUser(session?.user || null);
+    // Check if the user is already logged in
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      setIsLoggedIn(!!session);
+      if (session) {
+        setUser(session.user); // Set user data
       }
     };
 
-    fetchSession();
+    getSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
-      setUser(session?.user || null);
+    // Subscribe to auth state changes
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      setIsLoggedIn(!!session);
+      if (session) {
+        setUser(session.user); // Set user data on auth state change
+      } else {
+        setUser(null); // Clear user data on logout
+      }
     });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
   }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
+    setIsLoggedIn(false);
+    setUser(null); // Clear user data on logout
   };
 
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-grow">
-            {user ? (
-              <div className=''>
-                <nav className="login-info">
-                  <span>Hi, {user.email} </span>
-                  <Link to="/" onClick={handleLogout}>Logout</Link>
-                </nav>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/gallery" element={<Gallery />} />
-                  <Route path="/news" element={<News />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/admin" element={<Admin />} />
-                </Routes>
-              </div>
-            ) : (
-              <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="*" element={<Navigate to="/" />} />
-              </Routes>
-            )}
-          </main>
-          <Footer />
+          {isLoggedIn ? (
+            <>
+              <Navbar />
+              <main className="flex-grow">
+                <div className=''>
+                  <nav className="login-info">
+                    <span>Hi, {user?.email} </span> {/* Use optional chaining */}
+                    <Link to="/" onClick={handleLogout}>Logout</Link>
+                  </nav>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/news" element={<News />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/admin" element={<Admin />} />
+                  </Routes>
+                </div>
+              </main>
+              <Footer />
+            </>
+          ) : (
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          )}
         </div>
       </Router>
     </AuthProvider>
