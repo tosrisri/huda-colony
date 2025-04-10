@@ -206,12 +206,12 @@ function About() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 pt-24 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* History Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Our History</h2>
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="">
             <p className="text-gray-600 leading-relaxed">
               Huda Colony was established in 1995 as a planned residential community, designed to provide modern living spaces while fostering a strong sense of community. Over the years, we have grown from a small settlement of 50 families to a thriving community of over 500 households. Our community has been at the forefront of implementing sustainable living practices and creating inclusive spaces for all residents.
             </p>

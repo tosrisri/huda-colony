@@ -44,7 +44,7 @@ function News() {
   if (error) return <div>Error loading news: {error.message}</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 pt-24 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center mb-8">
           <Bell className="h-8 w-8 text-indigo-600 mr-3" />

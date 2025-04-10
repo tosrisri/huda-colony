@@ -49,7 +49,7 @@ function App() {
           <Navbar />
           <main className="flex-grow">
             {user ? (
-              <div>
+              <div className=''>
                 <nav className="login-info">
                   <span>Hi, {user.email} </span>
                   <Link to="/" onClick={handleLogout}>Logout</Link>

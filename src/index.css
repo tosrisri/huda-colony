@@ -2,23 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --pri-color: #EBB42C;
+  --sec-color: #efefef;
+}
+.pcolor {
+  color: var(--pri-color);
+}
+.scolor {
+  color: var(--sec-color);
+}
 a, button { outline: none;}
 
 .login-info {
   display: flex;
   justify-content: right;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   font-size: 12px;
+  z-index: 1000;
 }
 .login-info a {
   margin-right: 1rem;
   margin-left: 1em;
-  color: #4f46e5;
+  color: var(--pri-color);
   text-decoration: none;
 }
 .login-info a:hover {
   text-decoration: underline;
+}
+
+.navbar-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 990;
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /*background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);*/
+}
+
+.sub-page-hero {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  background: url('/src/assets/images/sub-page-hero.jpg') no-repeat center center;
+  background-size: cover;
 }
