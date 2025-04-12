@@ -93,7 +93,7 @@ function About() {
         console.log('Fetched members data:', allMembers);
         if (allMembers) {
           const uniqueMembers = Array.from(new Map(allMembers.map(member => [member.id, member])).values());
-          
+
           // Ensure each member has a unique photo_url
           const membersWithPhotos = uniqueMembers.map(member => ({
             ...member,
@@ -142,7 +142,7 @@ function About() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const { full_name, email, phone, block_number, is_executive } = newMember;
 
     if (!full_name || !email || !phone || !block_number) {
@@ -221,13 +221,31 @@ function About() {
         {/* Executive Members Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Executive Members</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {executives.map((executive) => (
-              <div key={executive.id} className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{executive.full_name}</h3>
-                <p className="text-gray-600 mb-1">Block: {executive.block_number}</p>
-                <p className="text-gray-600 mb-1">Email: {executive.email}</p>
-                <p className="text-gray-600">Phone: {executive.phone}</p>
+              <div key={executive.id} className="flip-card">
+                <div className="flip-card-inner">
+                  {/* Front Side */}
+                  <div className="flip-card-front bg-white rounded-lg shadow-md p-6 text-center">
+                    {executive.photo_url && executive.photo_url !== 'NA' ? (
+                      <img
+                        src={executive.photo_url}
+                        alt={executive.full_name}
+                        className="w-20 h-20 rounded-full mx-auto mb-4"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 rounded-full bg-gray-300 mx-auto mb-4"></div>
+                    )}
+                    <h3 className="font-semibold text-lg">{executive.full_name}</h3>
+                    <p className="text-gray-600">Block: {executive.block_number}</p>
+                  </div>
+                  {/* Back Side */}
+                  <div className="flip-card-back bg-indigo-600 text-white rounded-lg shadow-md p-6 text-center">
+                    <h3 className="font-semibold text-lg">{executive.full_name}</h3>
+                    <p className="text-gray-200">Email: {executive.email}</p>
+                    <p className="text-gray-200">Phone: {executive.phone}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -235,8 +253,78 @@ function About() {
 
         {/* Member Directory Section */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Member Directory</h2>
-          
+          <div className="w-full">
+            
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Member Directory</h2>
+            
+            <div className="border-b border-gray-300 my-4 bg-slate-50 p-4 rounded-lg shadow-md">
+              <button
+                onClick={() => setShowForm(!showForm)}
+                className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                {showForm ? 'Cancel Adding' : 'Add New Member'}
+              </button>
+
+              {showForm && (
+                <form onSubmit={handleSubmit} className="mt-4 space-y-4 flex space-x-4 items-center">
+                  <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Full Name"
+                    value={newMember.full_name}
+                    onChange={handleInputChange}
+                    required
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={newMember.email}
+                    onChange={handleInputChange}
+                    required
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone"
+                    value={newMember.phone}
+                    onChange={handleInputChange}
+                    required
+                    className=" px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  <input
+                    type="text"
+                    name="block_number"
+                    placeholder="Block Number"
+                    value={newMember.block_number}
+                    onChange={handleInputChange}
+                    required
+                    className=" px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  {userRole === 'admin' && (
+                    <input
+                      type="file"
+                      name="photo"
+                      onChange={handlePhotoUpload}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                  )}
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    Submit
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+
+
+
           {/* Search Bar */}
           <div className="mb-6 relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -328,58 +416,7 @@ function About() {
         {/* Add New Member Section */}
         <section className="mt-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Add New Member</h2>
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            {showForm ? 'Cancel' : 'Add New Member'}
-          </button>
 
-          {showForm && (
-            <form onSubmit={handleSubmit} className="mt-4">
-              <input
-                type="text"
-                name="full_name"
-                placeholder="Full Name"
-                value={newMember.full_name}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={newMember.email}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="phone"
-                placeholder="Phone"
-                value={newMember.phone}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="block_number"
-                placeholder="Block Number"
-                value={newMember.block_number}
-                onChange={handleInputChange}
-                required
-              />
-              {userRole === 'admin' && (
-                <input
-                  type="file"
-                  name="photo"
-                  onChange={handlePhotoUpload}
-                  required
-                />
-              )}
-              <button type="submit">Submit</button>
-            </form>
-          )}
         </section>
       </div>
     </div>

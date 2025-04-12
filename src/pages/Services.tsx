@@ -173,7 +173,7 @@ function Services() {
                 id="service"
                 value={selectedService}
                 onChange={(e) => setSelectedService(e.target.value)}
-                className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 required
               >
                 <option value="">Select a service...</option>
@@ -194,7 +194,7 @@ function Services() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={4}
-                className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Please describe your service request..."
                 required
               />
@@ -203,24 +203,10 @@ function Services() {
             <button
               type="submit"
               disabled={submitStatus === 'loading'}
-              className="flex items-center justify-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
             >
-              {submitStatus === 'loading' ? (
-                'Submitting...'
-              ) : (
-                <>
-                  <Send className="h-5 w-5 mr-2" />
-                  Submit Request
-                </>
-              )}
+              {submitStatus === 'loading' ? 'Submitting...' : 'Submit Request'}
             </button>
-
-            {submitStatus === 'success' && (
-              <p className="text-green-600 text-center">Service request submitted successfully!</p>
-            )}
-            {submitStatus === 'error' && (
-              <p className="text-red-600 text-center">Error submitting service request. Please try again.</p>
-            )}
           </form>
         </div>
       </div>
