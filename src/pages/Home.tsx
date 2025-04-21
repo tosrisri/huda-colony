@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Calendar, Users, MessageSquare, Bell, Phone } from 'lucide-react';
-import parkImage from '../assets/images/park.jpg';
 import './Home.css'; // Import your CSS file for flip card styles
+import Spline from '@splinetool/react-spline';
 
 interface NewsItem {
   id: string;
@@ -61,35 +61,19 @@ function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div
-        className="relative bg-cover bg-center h-[500px]"
-        style={{
-          backgroundImage: `url(${parkImage})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-50">
-          <div className="max-w-7xl mx-auto h-full flex items-center px-4 sm:px-6 lg:px-8">
-            <div className="text-white">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Huda Colony</h1>
-              <p className="text-xl md:text-2xl mb-8">A peaceful and vibrant community for modern living</p>
-              <a
-                href="/about"
-                className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition duration-300"
-              >
-                Learn More
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section className="w-full h-[75vh]">
+      <Spline scene="https://prod.spline.design/9I7QKPhih4hdT2r8/scene.splinecode" />
+    </section>   
+       
+      
 
       {/* Latest News & Events */}
-      <section className="py-12">
+      <section className="py-12 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
-            <Bell className="h-8 w-8 mr-2 text-indigo-600" />
+          <h2 className="text-3xl font-bold mb-8 flex items-center hc-tcolor-dark">
+            <Bell className="h-8 w-8 mr-2 hc-tcolor-dark" />
             Latest News & Events
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -98,12 +82,12 @@ function Home() {
                 <div key={item.id} className="cards-bg rounded-lg shadow-md overflow-hidden">
                   <div className="p-6">
                     <div className="flex items-center mb-4">
-                      <Calendar className="h-5 w-5 text-indigo-600 mr-2" />
+                      <Calendar className="h-5 w-5 hc-tcolor-dark mr-2" />
                       <span className="text-gray-600">
                         {new Date(item.created_at).toLocaleDateString()}
                       </span>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                    <h3 className="text-xl font-semibold mb-2 hc-tcolor-dark">{item.title}</h3>
                     <p className="text-gray-600">{item.content}</p>
                   </div>
                 </div>
@@ -116,7 +100,7 @@ function Home() {
       </section>
 
       {/* Welcome New Members */}
-      <section className="py-12 home-newmem-bg">
+      <section className="py-12 bg-[#F7EEE5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-700 mb-8 flex items-center">
             <Users className="h-8 w-8 mr-2 text-gray-700" />
@@ -137,7 +121,7 @@ function Home() {
                       <h3 className="font-semibold text-lg">{member.full_name}</h3>
                     </div>
                     {/* Back Side */}
-                    <div className="flip-card-back bg-indigo-600 text-white rounded-lg shadow-md p-6 text-center">
+                    <div className="flip-card-back hc-bgcolor-dark text-white rounded-lg shadow-md p-6 text-center">
                       <h3 className="font-semibold text-lg">{member.full_name}</h3>
                       <p className="text-gray-200">Block: {member.block_number}</p>
                       <p className="text-gray-200">Email: {member.email}</p>
@@ -159,8 +143,8 @@ function Home() {
       {/* Members Speak */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
-            <MessageSquare className="h-8 w-8 mr-2 text-indigo-600" />
+          <h2 className="text-3xl font-bold hc-tcolor-dark mb-8 flex items-center">
+            <MessageSquare className="h-8 w-8 mr-2 hc-tcolor-dark" />
             Members Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -187,10 +171,10 @@ function Home() {
       </section>
 
       {/* Emergency Contacts */}
-      <section className="py-12 bg-gray-100">
+      <section className="py-12 bg-[#F7EEE5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
-            <Phone className="h-8 w-8 mr-2 text-indigo-600" />
+          <h2 className="text-3xl font-bold hc-tcolor-dark mb-8 flex items-center">
+            <Phone className="h-8 w-8 mr-2 hc-tcolor-dark" />
             Emergency Contacts
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -199,9 +183,9 @@ function Home() {
               { title: 'Maintenance', number: '+91 98765-43211' },
               { title: 'Medical Emergency', number: '+91 98765-43212' },
             ].map((contact, index) => (
-              <div key={index} className="cards-bg rounded-lg shadow-md p-6">
+              <div key={index} className="shadow-inner rounded-lg inset-6 p-6">
                 <h3 className="text-xl font-semibold mb-2">{contact.title}</h3>
-                <p className="text-indigo-600 text-lg font-medium">{contact.number}</p>
+                <p className="hc-tcolor-dark text-lg font-medium">{contact.number}</p>
               </div>
             ))}
           </div>

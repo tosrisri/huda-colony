@@ -52,6 +52,7 @@ a, button { outline: none;}
   z-index: 990;
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   /*background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);*/
+   background-image: linear-gradient(90deg, #3F5EFB 0%, #FC466B 100%)
 }
 
 .sub-page-hero {
@@ -68,7 +69,7 @@ a, button { outline: none;}
 
 .cards-bg {
   background: rgb(252,252,252);
-  background: linear-gradient(145deg, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 60%, rgba(226,226,226,1) 100%);
+  background: linear-gradient(125deg, #fdfdfd 0%, #f8f8f8 60%, #f2f2f2 100%);
 }
 
 /* Flip Card Styles */
