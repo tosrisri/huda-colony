@@ -86,7 +86,7 @@ function Home() {
                   {item.images && item.images[0] && (
                     <div className="aspect-w-16 aspect-h-9">
                       <img
-                        src={item.images[2]}
+                        src={item.images[0]}
                         alt={`Preview for ${item.title}`}
                         className="w-full h-48 object-cover"
                       />
