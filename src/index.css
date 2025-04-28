@@ -11,6 +11,13 @@
   --sec-color-dark: #D7D7D7;
   --pri-color-darkest: #A68F2A;
   --sec-color-darkest: #C7C7C7;
+  --brand-color: #954100;
+}
+.brand-color {
+  color: var(--brand-color);
+}
+.bg-brand-color {
+  background-color: var(--brand-color);
 }
 
 .nunito-sans {
@@ -108,11 +115,11 @@ a, button { outline: none;}
   transform: rotateY(180deg); /* Positions the back side for the flip */
 }
 
-h2, h3, h4 {
+h1, h2, h3, h4 {
   font-weight: 600;
   font-size: 1.875rem /* 30px */;
   line-height: 2.25rem /* 36px */;
-  color: #954100;
+  color: var(--brand-color);
 }
 
 .footer {

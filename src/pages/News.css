@@ -35,6 +35,21 @@
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Pagination styles */
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-button:not(:disabled):hover {
+  background-color: #f3f4f6;
+}
+
+.page-number-active {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
