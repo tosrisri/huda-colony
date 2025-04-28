@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { format } from 'date-fns';
 import { Bell } from 'lucide-react';
+import './News.css'; // Import your CSS file for news styles
 
 interface NewsItem {
   id: string;
   title: string;
   content: string;
   created_at: string;
+  images: string[]; // Add images array
   members: {
     full_name: string | null;
   } | null;
@@ -33,7 +35,6 @@ function News() {
         console.error('Error fetching news:', error);
         setError(error);
       } else {
-        console.log('Fetched news data:', data);
         setNews(data);
       }
     };
@@ -45,7 +46,7 @@ function News() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center mb-8">
           <Bell className="h-8 w-8 text-indigo-600 mr-3" />
           <h1 className="text-3xl font-bold text-gray-900">News & Announcements</h1>
@@ -53,16 +54,32 @@ function News() {
 
         <div className="space-y-8">
           {news.map((item) => (
-            <article key={item.id} className="overflow-hidden border-b">
-              <div className="p-6">
+            <article key={item.id} className="bg-white overflow-hidden rounded-lg shadow-md">
+              <div className="p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">{item.title}</h2>
-                <div className="flex items-center text-sm text-gray-500 mb-4">
-                  <span>Posted by {item.members ? item.members.full_name : 'Unknown Author'}</span>
+                <div className="flex items-center text-sm text-gray-500 mb-6">
+                  <span>Posted by {item.members?.full_name || 'Shree'}</span>
                   <span className="mx-2">•</span>
                   <span>{format(new Date(item.created_at), 'MMMM d, yyyy')}</span>
                 </div>
                 <div className="prose max-w-none">
-                  <p className="text-gray-600 whitespace-pre-line">{item.content}</p>
+                  {/* Split content by paragraphs and render with images */}
+                  {item.content.split('\n').map((paragraph, index) => (
+                    <React.Fragment key={index}>
+                      {/* Display image after paragraph if available */}
+                      {item.images && item.images[index] && (
+                        <div className="my-6">
+                          <img
+                            src={item.images[index]}
+                            alt={`Image ${index + 1} for ${item.title}`}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                      )}
+                      <p className="text-gray-600 leading-relaxed">{paragraph}</p>
+                      
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
             </article>

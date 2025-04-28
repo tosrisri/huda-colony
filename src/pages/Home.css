@@ -89,3 +89,9 @@ img {
   .hc-tcolor-dark {
     color: #954100; /* Dark purple color */
   }
+
+
+  .section-wrapper {
+    padding: 2rem 0;
+    background-color: #F7EEE5;
+  }

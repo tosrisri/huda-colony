@@ -210,7 +210,7 @@ function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* History Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Our History</h2>
+          <h2 className="mb-6">Our History</h2>
           <div className="">
             <p className="text-gray-600 leading-relaxed">
               Huda Colony was established in 1995 as a planned residential community, designed to provide modern living spaces while fostering a strong sense of community. Over the years, we have grown from a small settlement of 50 families to a thriving community of over 500 households. Our community has been at the forefront of implementing sustainable living practices and creating inclusive spaces for all residents.
@@ -220,7 +220,7 @@ function About() {
 
         {/* Executive Members Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Executive Members</h2>
+          <h2 className="mb-6">Executive Members</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {executives.map((executive) => (
               <div key={executive.id} className="flip-card">
@@ -255,7 +255,7 @@ function About() {
         <section>
           <div className="w-full">
             
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Member Directory</h2>
+              <h2 className="mb-6">Member Directory</h2>
             
             <div className="border-b border-gray-300 my-4 bg-slate-50 p-4 rounded-lg shadow-md">
               <button
@@ -415,7 +415,7 @@ function About() {
 
         {/* Add New Member Section */}
         <section className="mt-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Add New Member</h2>
+          <h2 className="mb-6">Add New Member</h2>
 
         </section>
       </div>

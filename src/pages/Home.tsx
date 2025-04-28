@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Calendar, Users, MessageSquare, Bell, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import '../index.css'; // Import your global CSS file
 import './Home.css'; // Import your CSS file for flip card styles
 import Spline from '@splinetool/react-spline';
 
@@ -9,6 +11,7 @@ interface NewsItem {
   title: string;
   created_at: string;
   content: string;
+  images: string[]; // Add images array
 }
 
 interface Member {
@@ -70,7 +73,7 @@ function Home() {
       
 
       {/* Latest News & Events */}
-      <section className="py-12 ">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 flex items-center hc-tcolor-dark">
             <Bell className="h-8 w-8 mr-2 hc-tcolor-dark" />
@@ -80,6 +83,15 @@ function Home() {
             {news.length > 0 ? (
               news.map((item) => (
                 <div key={item.id} className="cards-bg rounded-lg shadow-md overflow-hidden">
+                  {item.images && item.images[0] && (
+                    <div className="aspect-w-16 aspect-h-9">
+                      <img
+                        src={item.images[2]}
+                        alt={`Preview for ${item.title}`}
+                        className="w-full h-48 object-cover"
+                      />
+                    </div>
+                  )}
                   <div className="p-6">
                     <div className="flex items-center mb-4">
                       <Calendar className="h-5 w-5 hc-tcolor-dark mr-2" />
@@ -88,7 +100,18 @@ function Home() {
                       </span>
                     </div>
                     <h3 className="text-xl font-semibold mb-2 hc-tcolor-dark">{item.title}</h3>
-                    <p className="text-gray-600">{item.content}</p>
+                    <p className="text-gray-600 mb-4">
+                      {item.content.length > 150 
+                        ? `${item.content.substring(0, 150)}...` 
+                        : item.content
+                      }
+                    </p>
+                    <Link 
+                      to={`/news`} 
+                      className="text-indigo-600 hover:text-indigo-700 font-medium"
+                    >
+                      Learn More
+                    </Link>
                   </div>
                 </div>
               ))
@@ -100,10 +123,10 @@ function Home() {
       </section>
 
       {/* Welcome New Members */}
-      <section className="py-12 bg-[#F7EEE5]">
+      <section className="section-wrapper">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-700 mb-8 flex items-center">
-            <Users className="h-8 w-8 mr-2 text-gray-700" />
+          <h2 className="text-3xl font-bold mb-8 flex items-center">
+            <Users className="h-8 w-8 mr-2" />
             Welcome New Members
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
