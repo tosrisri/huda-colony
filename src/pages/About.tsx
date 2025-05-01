@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Search } from 'lucide-react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import './About.css'; // Import your CSS file for flip card styles
 
 interface Member {
   id: string;
@@ -254,13 +255,13 @@ function About() {
         {/* Member Directory Section */}
         <section>
           <div className="w-full">
-            
-              <h2 className="mb-6">Member Directory</h2>
-            
+
+            <h2 className="mb-6">Member Directory</h2>
+
             <div className="border-b border-gray-300 my-4 bg-slate-50 p-4 rounded-lg shadow-md">
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="hc-btn"
               >
                 {showForm ? 'Cancel Adding' : 'Add New Member'}
               </button>
@@ -340,76 +341,78 @@ function About() {
           </div>
 
           {/* Members Table */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="overflow-x-auto">
-              {error && <div>Error loading members: {error.message}</div>}
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+          <div className="overflow-hidden">
+            <div className="table-container">
+              {error && <div className="error-message">Error loading members: {error.message}</div>}
+              <table className="members-table">
+                <thead>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Photo</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" onClick={() => handleSort('full_name')}>
+                    <th className="table-header">Photo</th>
+                    <th className="table-header" onClick={() => handleSort('full_name')}>
                       Name {sortField === 'full_name' && (sortOrder === 'asc' ? <ChevronUp /> : <ChevronDown />)}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" onClick={() => handleSort('block_number')}>
+                    <th className="table-header" onClick={() => handleSort('block_number')}>
                       Block Number {sortField === 'block_number' && (sortOrder === 'asc' ? <ChevronUp /> : <ChevronDown />)}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" onClick={() => handleSort('email')}>
+                    <th className="table-header" onClick={() => handleSort('email')}>
                       Email {sortField === 'email' && (sortOrder === 'asc' ? <ChevronUp /> : <ChevronDown />)}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" onClick={() => handleSort('phone')}>
+                    <th className="table-header" onClick={() => handleSort('phone')}>
                       Phone {sortField === 'phone' && (sortOrder === 'asc' ? <ChevronUp /> : <ChevronDown />)}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody>
                   {paginatedMembers.map((member) => (
-                    <tr key={member.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <tr key={member.id} className="table-row">
+                      <td className="table-cell">
                         {member.photo_url && member.photo_url !== 'NA' ? (
-                          <img src={member.photo_url} alt={member.full_name} className="w-12 h-12 rounded-full" />
+                          <img src={member.photo_url} alt={member.full_name} className="photo" />
                         ) : (
                           'NA'
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{member.full_name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.block_number}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.email}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.phone}</td>
+                      <td className="table-cell">{member.full_name}</td>
+                      <td className="table-cell">{member.block_number}</td>
+                      <td className="table-cell">{member.email}</td>
+                      <td className="table-cell">{member.phone}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 sm:px-6">
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
+
+
+            <div className="pagination-container">
+              <div className="pagination">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="page-button prev"
+                >
+                  Previous
+                </button>
+                {Array.from({ length: totalFilteredPages }, (_, index) => (
                   <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-3 py-1 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    key={index}
+                    onClick={() => handlePageChange(index + 1)}
+                    disabled={currentPage === index + 1}
+                    className={`page-button ${currentPage === index + 1 ? "active" : ""}`}
                   >
-                    Previous
+                    {index + 1}
                   </button>
-                  {Array.from({ length: totalFilteredPages }, (_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePageChange(index + 1)}
-                      disabled={currentPage === index + 1}
-                      className={`px-3 py-1 border border-gray-300 rounded-md text-sm leading-5 font-medium ${currentPage === index + 1 ? 'bg-indigo-500 text-white' : 'text-gray-500'} hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalFilteredPages}
-                    className="px-3 py-1 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  >
-                    Next
-                  </button>
-                </div>
+                ))}
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalFilteredPages}
+                  className="page-button next"
+                >
+                  Next
+                </button>
               </div>
             </div>
+
+
           </div>
         </section>
 

@@ -140,11 +140,11 @@ h1, h2, h3, h4 {
 p {  
   color: var(--text-color);
 }
-a {
+.card a {
   color: var(--brand-color);
   text-decoration: none;
 }
-a:hover {
+.card a:hover {
   color: var(--text-color-black);
   text-decoration: underline;
 }
