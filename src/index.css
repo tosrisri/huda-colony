@@ -12,6 +12,26 @@
   --pri-color-darkest: #A68F2A;
   --sec-color-darkest: #C7C7C7;
   --brand-color: #954100;
+  --text-color: #666;
+  --text-color-light: #999;
+  --text-color-dark: #333;
+  --text-color-black: #212121;
+  --text-color-white: #fff;
+}
+.text-color-black {
+  color: var(--text-color-black);
+}
+.text-color-white {
+  color: var(--text-color-white);
+}
+.text-color {
+  color: var(--text-color);
+}
+.text-color-light {
+  color: var(--text-color-light);
+}
+.text-color-dark {
+  color: var(--text-color-dark);
 }
 .brand-color {
   color: var(--brand-color);
@@ -80,10 +100,6 @@ a, button { outline: none;}
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.cards-bg {
-  background: rgb(252,252,252);
-  background: linear-gradient(125deg, #fdfdfd 0%, #f8f8f8 60%, #f2f2f2 100%);
-}
 
 /* Flip Card Styles */
 .flip-card {
@@ -119,20 +135,47 @@ h1, h2, h3, h4 {
   font-weight: 600;
   font-size: 1.875rem /* 30px */;
   line-height: 2.25rem /* 36px */;
-  color: var(--brand-color);
+  color: var(--text-color-black);
 }
-
+p {  
+  color: var(--text-color);
+}
+a {
+  color: var(--brand-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--text-color-black);
+  text-decoration: underline;
+}
 .footer {
   background-color: #130700;
   background-image: linear-gradient(0deg, #130700 0%, #381f00 100%);
-  color: #ccc 
+  color: var(--text-color-light);
 
 }
 .footer h3 {
   font-weight: 400;
-  color: #ffc166;
+  color: var(--pri-color);
+}
+.footer a {
+  color: var(--text-color-light);
+}
+.footer a:hover {
+  color: var(--text-color-white);
+  text-decoration: underline;
 }
 
-.footer a:hover {
-  color: #fff;
+/* Card Zoom */
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s; 
+  opacity: 0.98; /* Default opacity */
+  background-color: var(--sec-color-light) ;
+}
+
+.card:hover {
+  transform: scale(1.02); /* Zoom in 5% */
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); /* Drop shadow */
+  opacity: 1; /* Full visibility on hover */
+  border: 1px solid #eee; /* Slight border */
 }

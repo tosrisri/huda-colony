@@ -15,7 +15,7 @@ function Footer() {
               <li><a href="/contact" className="">Contact Us</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Emergency Contacts</h3>
             <ul className="space-y-2">
@@ -30,7 +30,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-2">
@@ -46,9 +46,9 @@ function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-          <p className='text-xs'>&copy; {new Date().getFullYear()} Huda Colony. All rights reserved.</p>
+          <p className='text-xs text-color-light'>&copy; {new Date().getFullYear()} Huda Colony. All rights reserved.</p>
         </div>
       </div>
     </footer>
